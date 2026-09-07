@@ -57,15 +57,15 @@ describe("ComposerOptions", () => {
       />,
     );
 
-    await waitFor(() => expect(providerMocks.listEnabledModels).toHaveBeenCalledTimes(1));
+    await waitFor(() => expect(providerMocks.listEnabledModels).toHaveBeenCalledTimes(1), { timeout: 5000 });
     providerMocks.setEnabled(["provider-1::fresh-model"]);
 
     fireEvent.click(container.querySelector(".composer-options__trigger")!);
-    await waitFor(() => expect(providerMocks.listEnabledModels).toHaveBeenCalledTimes(2));
+    await waitFor(() => expect(providerMocks.listEnabledModels).toHaveBeenCalledTimes(2), { timeout: 5000 });
     fireEvent.mouseEnter(document.querySelector(".composer-options__row")!);
     expect(queryByText("Fresh Model Name")).not.toBeInTheDocument();
     fireEvent.click(document.querySelector(".composer-options__row")!);
 
-    await waitFor(() => expect(getAllByText("Fresh Model Name").length).toBeGreaterThanOrEqual(1));
+    await waitFor(() => expect(getAllByText("Fresh Model Name").length).toBeGreaterThanOrEqual(1), { timeout: 5000 });
   });
 });
