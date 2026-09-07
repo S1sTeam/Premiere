@@ -9,136 +9,136 @@ importers:
   .:
     dependencies:
       '@fontsource/anonymous-pro':
-        specifier: ^5.2.8
+        specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/archivo':
-        specifier: ^5.2.8
+        specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/barlow':
-        specifier: ^5.2.8
+        specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/be-vietnam-pro':
-        specifier: ^5.2.8
+        specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/dm-mono':
-        specifier: ^5.2.7
+        specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/dm-sans':
-        specifier: ^5.2.8
+        specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/epilogue':
-        specifier: ^5.2.8
+        specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/figtree':
-        specifier: ^5.2.10
+        specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/fira-code':
-        specifier: ^5.2.7
+        specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/fira-sans':
-        specifier: ^5.2.7
+        specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/ibm-plex-mono':
-        specifier: ^5.2.7
+        specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/inconsolata':
-        specifier: ^5.2.8
+        specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/inter':
-        specifier: ^5.2.8
+        specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/iosevka':
-        specifier: ^5.2.5
+        specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/jetbrains-mono':
-        specifier: ^5.2.8
+        specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/josefin-sans':
-        specifier: ^5.2.8
+        specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/lato':
-        specifier: ^5.2.7
+        specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/lexend':
-        specifier: ^5.2.11
+        specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/manrope':
-        specifier: ^5.2.8
+        specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/montserrat':
-        specifier: ^5.2.8
+        specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/mulish':
-        specifier: ^5.2.8
+        specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/noto-sans':
-        specifier: ^5.2.10
+        specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/nunito':
-        specifier: ^5.2.7
+        specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/onest':
-        specifier: ^5.2.11
+        specifier: ^5.3.1
         version: 5.3.1
       '@fontsource/open-sans':
-        specifier: ^5.2.7
+        specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/outfit':
-        specifier: ^5.2.8
+        specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/plus-jakarta-sans':
-        specifier: ^5.2.8
+        specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/poppins':
-        specifier: ^5.2.7
+        specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/pt-sans':
-        specifier: ^5.2.8
+        specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/quicksand':
-        specifier: ^5.2.10
+        specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/raleway':
-        specifier: ^5.2.8
+        specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/recursive':
-        specifier: ^5.2.8
+        specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/red-hat-mono':
-        specifier: ^5.2.8
+        specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/roboto':
-        specifier: ^5.2.10
+        specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/rubik':
-        specifier: ^5.2.8
+        specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/sometype-mono':
-        specifier: ^5.2.7
+        specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/sora':
-        specifier: ^5.2.8
+        specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/source-code-pro':
-        specifier: ^5.2.7
+        specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/source-sans-3':
-        specifier: ^5.2.9
+        specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/space-mono':
-        specifier: ^5.2.9
+        specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/ubuntu':
-        specifier: ^5.2.8
+        specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/urbanist':
-        specifier: ^5.2.7
+        specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/victor-mono':
-        specifier: ^5.2.8
+        specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/work-sans':
-        specifier: ^5.2.8
+        specifier: ^5.3.0
         version: 5.3.0
       '@monaco-editor/react':
         specifier: ^4.7.0
