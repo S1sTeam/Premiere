@@ -17,7 +17,7 @@ permissions:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -32,8 +32,6 @@ jobs:
             platform: linux-x64
           - os: macos-latest
             platform: macos-arm64
-          - os: macos-13
-            platform: macos-x64
 
     runs-on: ${{ matrix.os }}
 
@@ -79,7 +77,7 @@ jobs:
         shell: bash
         run: |
           mkdir -p dist-release
-          find target/release/bundle -type f \( -name "*.exe" -o -name "*.msi" \) -exec cp {} dist-release/ \;
+          find . -path "*/target/release/bundle/*" -type f \( -name "*.exe" -o -name "*.msi" \) -exec cp {} dist-release/ \;
           ls -la dist-release/
 
       - name: Prepare release assets (Linux)
@@ -87,9 +85,10 @@ jobs:
         shell: bash
         run: |
           mkdir -p dist-release
-          find target/release/bundle -type f \( -name "*.deb" -o -name "*.AppImage" -o -name "*.rpm" \) -exec cp {} dist-release/ \;
-          if [ -f "target/release/premire" ]; then
-            tar -czf dist-release/premire_1.0.0_linux_x64.tar.gz -C target/release premire
+          find . -path "*/target/release/bundle/*" -type f \( -name "*.deb" -o -name "*.AppImage" -o -name "*.rpm" \) -exec cp {} dist-release/ \;
+          linux_bin=$(find . -name "premire" -type f -path "*/target/release/*" | head -n 1)
+          if [ -n "$linux_bin" ]; then
+            tar -czf dist-release/premire_1.0.0_linux_x64.tar.gz -C "$(dirname "$linux_bin")" "$(basename "$linux_bin")"
           fi
           ls -la dist-release/
 
@@ -98,8 +97,8 @@ jobs:
         shell: bash
         run: |
           mkdir -p dist-release
-          find target/release/bundle -type f -name "*.dmg" -exec cp {} dist-release/ \;
-          for app in target/release/bundle/macos/*.app; do
+          find . -path "*/target/release/bundle/*" -type f -name "*.dmg" -exec cp {} dist-release/ \;
+          find . -type d -path "*/target/release/bundle/macos/*.app" | while read -r app; do
             if [ -d "$app" ]; then
               app_name=$(basename "$app" .app)
               zip -r "dist-release/${app_name}_1.0.0_${{ matrix.platform }}.app.zip" "$app"

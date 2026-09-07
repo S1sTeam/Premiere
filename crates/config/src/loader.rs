@@ -2,7 +2,7 @@ use std::collections::HashMap;
 use std::path::PathBuf;
 
 use crate::types::Config;
-use crate::{dotenv, provider};
+use crate::dotenv;
 
 pub fn load_config(cwd: &str) -> Config {
     let mut env = HashMap::new();
