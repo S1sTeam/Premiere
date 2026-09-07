@@ -1,0 +1,25 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="premire-bg" x1="512" y1="100" x2="512" y2="924" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#252d3c" />
+      <stop offset="100%" stop-color="#1a212c" />
+    </linearGradient>
+    <linearGradient id="premire-border" x1="512" y1="100" x2="512" y2="924" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="rgba(255, 255, 255, 0.16)" />
+      <stop offset="100%" stop-color="rgba(255, 255, 255, 0.05)" />
+    </linearGradient>
+    <filter id="premire-shadow" x="60" y="70" width="904" height="904" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="24" stdDeviation="28" flood-color="#000000" flood-opacity="0.45" />
+    </filter>
+  </defs>
+
+  <!-- Squircle Base with Soft Shadow -->
+  <rect x="100" y="100" width="824" height="824" rx="188" ry="188" fill="url(#premire-bg)" filter="url(#premire-shadow)" />
+  <rect x="100" y="100" width="824" height="824" rx="188" ry="188" stroke="url(#premire-border)" stroke-width="4" />
+
+  <!-- Left Tall Pill: Pure White / Light Slate -->
+  <rect x="299.5" y="287" width="162.5" height="450" rx="81.25" fill="#f8fafc" />
+
+  <!-- Right Short Pill: Slate Grey -->
+  <rect x="562" y="287" width="162.5" height="262.5" rx="81.25" fill="#94a3b8" />
+</svg>

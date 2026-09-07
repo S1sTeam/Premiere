@@ -1,0 +1,44 @@
+{
+  "$schema": "https://raw.githubusercontent.com/tauri-apps/tauri/dev/crates/tauri-utils/schema.json",
+  "productName": "Premire",
+  "version": "1.0.0",
+  "identifier": "com.premire.app",
+  "build": {
+    "frontendDist": "../dist/src",
+    "devUrl": "http://localhost:3001",
+    "beforeDevCommand": "npm run dev:src",
+    "beforeBuildCommand": "npm run build:src"
+  },
+  "app": {
+    "withGlobalTauri": true,
+    "windows": [
+      {
+        "title": "Premire",
+        "width": 1300,
+        "height": 820,
+        "resizable": true,
+        "fullscreen": false,
+        "maximized": true,
+        "decorations": false,
+        "center": true
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: asset: https:; connect-src 'self' https: http://localhost:* http://127.0.0.1:*; font-src 'self' data:; frame-src 'self'"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["deb", "rpm", "appimage", "nsis", "msi", "dmg", "app"],
+    "icon": ["icons/icon.png", "icons/icon.ico"],
+    "windows": {
+      "nsis": {
+        "languages": ["en-US"],
+        "displayLanguageSelector": false
+      }
+    },
+    "macOS": {
+      "minimumSystemVersion": "11.0"
+    }
+  }
+}

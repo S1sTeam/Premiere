@@ -1,0 +1,206 @@
+/* Premire theme adapter. The library never reads application tokens directly. */
+:root {
+  --z-color-canvas: var(--bg);
+  --z-color-surface: var(--bg-2);
+  --z-color-surface-raised: var(--bg-3);
+  --z-color-surface-hover: var(--surface-hover, rgba(255, 255, 255, 0.08));
+  --z-color-surface-active: var(--surface-active, rgba(255, 255, 255, 0.12));
+  --z-color-text: var(--fg);
+  --z-color-text-muted: var(--fg-dim);
+  --z-color-text-subtle: var(--fg-muted);
+  --z-color-border: var(--line);
+  --z-color-border-strong: var(--line-strong);
+  --z-color-accent: var(--accent);
+  --z-color-accent-text: var(--accent-text);
+  --z-color-danger: var(--red);
+  --z-color-danger-hover: #ff7878;
+  --z-color-danger-text: #ffffff;
+  --z-color-focus: var(--accent);
+  --z-color-selection: var(--selected-bg, rgba(255, 255, 255, 0.1));
+
+  /* Typography scale */
+  --z-font-family: var(--sans);
+  --z-font-mono: var(--mono);
+  --z-font-xs: var(--text-xs);
+  --z-font-sm: var(--text-sm);
+  --z-font-md: var(--text-md);
+  --z-font-lg: var(--text-lg);
+  --z-font-xl: var(--text-xl);
+
+  /* Spacing scale */
+  --z-space-0: var(--space-0);
+  --z-space-1: var(--space-1);
+  --z-space-2: var(--space-2);
+  --z-space-3: var(--space-3);
+  --z-space-4: var(--space-4);
+  --z-space-5: var(--space-5);
+  --z-space-6: var(--space-6);
+  --z-space-7: var(--space-7);
+  --z-space-8: var(--space-8);
+  --z-space-9: var(--space-9);
+  --z-space-10: var(--space-10);
+
+  /* Radii */
+  --z-radius-control: var(--radius-sm);
+  --z-radius-surface: var(--radius-md);
+  --z-radius-canvas: var(--radius-md);
+  --z-radius-floating: var(--radius-lg);
+  --z-button-radius: var(--radius-sm);
+  --z-field-radius: var(--radius-sm);
+  --z-overlay-radius: var(--radius-md);
+  --z-primitive-radius-1: var(--radius-xs);
+  --z-primitive-radius-2: var(--radius-sm);
+  --z-primitive-radius-3: var(--radius-md);
+  --z-primitive-radius-4: var(--radius-lg);
+
+  --z-control-height-md: var(--control-height);
+  --z-duration-fast: var(--duration-fast);
+  --z-duration-normal: var(--duration-normal);
+  --z-ease: var(--ease-standard);
+  --z-disabled-opacity: var(--disabled-opacity);
+}
+
+.z-dialog-overlay {
+  backdrop-filter: blur(var(--blur-amount));
+  -webkit-backdrop-filter: blur(var(--blur-amount));
+}
+
+.z-select-viewport {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-2);
+}
+
+.z-select-viewport [role="group"] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.z-select-item,
+.z-menu-item {
+  margin-block: 1px;
+}
+
+.z-select-scroll {
+  display: none !important;
+}
+
+.z-toggle {
+  position: relative;
+}
+
+.z-toggle input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   Light Theme Tokens & High-Contrast Sliders / Toggles
+   ========================================================================== */
+
+:root[data-theme="light"],
+:root.theme-light,
+[data-scheme="light"] {
+  --z-color-canvas: #f8fafc;
+  --z-color-surface: #f1f5f9;
+  --z-color-surface-raised: #ffffff;
+  --z-color-surface-hover: rgba(15, 23, 42, 0.05);
+  --z-color-surface-active: #cbd5e1;
+  --z-color-text: #0f172a;
+  --z-color-text-muted: #475569;
+  --z-color-text-subtle: #64748b;
+  --z-color-border: #e2e8f0;
+  --z-color-border-strong: #cbd5e1;
+  --z-color-accent: #18181b;
+  --z-color-accent-text: #ffffff;
+  --z-color-focus: #18181b;
+  --z-color-selection: rgba(24, 24, 27, 0.1);
+}
+
+/* Toggles / switches in light theme — sleek dark graphite active track */
+:root[data-theme="light"] .z-toggle__slider,
+:root.theme-light .z-toggle__slider,
+[data-scheme="light"] .z-toggle__slider {
+  background: #cbd5e1 !important;
+  border: 1px solid #94a3b8 !important;
+  box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.12) !important;
+}
+
+:root[data-theme="light"] .z-toggle__slider::before,
+:root.theme-light .z-toggle__slider::before,
+[data-scheme="light"] .z-toggle__slider::before {
+  background: #ffffff !important;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.35), 0 0 1px rgba(15, 23, 42, 0.2) !important;
+}
+
+:root[data-theme="light"] .z-toggle:hover .z-toggle__slider,
+:root.theme-light .z-toggle:hover .z-toggle__slider,
+[data-scheme="light"] .z-toggle:hover .z-toggle__slider {
+  background: #94a3b8 !important;
+  border-color: #64748b !important;
+}
+
+:root[data-theme="light"] .z-toggle input:checked + .z-toggle__slider,
+:root.theme-light .z-toggle input:checked + .z-toggle__slider,
+[data-scheme="light"] .z-toggle input:checked + .z-toggle__slider {
+  background: #18181b !important;
+  border-color: #09090b !important;
+  box-shadow: 0 0 0 1px rgba(24, 24, 27, 0.2) !important;
+}
+
+:root[data-theme="light"] .z-toggle input:checked + .z-toggle__slider::before,
+:root.theme-light .z-toggle input:checked + .z-toggle__slider::before,
+[data-scheme="light"] .z-toggle input:checked + .z-toggle__slider::before {
+  background: #ffffff !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25) !important;
+}
+
+:root[data-theme="light"] .z-toggle input:focus-visible + .z-toggle__slider,
+:root.theme-light .z-toggle input:focus-visible + .z-toggle__slider,
+[data-scheme="light"] .z-toggle input:focus-visible + .z-toggle__slider {
+  outline: 2px solid #18181b !important;
+  outline-offset: 2px !important;
+}
+
+:root[data-theme="light"] .z-toggle__label,
+:root.theme-light .z-toggle__label,
+[data-scheme="light"] .z-toggle__label {
+  color: #0f172a !important;
+  font-weight: 500 !important;
+}
+
+/* Range sliders in light theme — deep graphite dark gray */
+:root[data-theme="light"] input[type="range"],
+:root.theme-light input[type="range"],
+[data-scheme="light"] input[type="range"] {
+  accent-color: #18181b !important;
+}
+
+:root[data-theme="light"] input[type="range"]::-webkit-slider-runnable-track,
+:root.theme-light input[type="range"]::-webkit-slider-runnable-track,
+[data-scheme="light"] input[type="range"]::-webkit-slider-runnable-track {
+  background: #cbd5e1 !important;
+  border: 1px solid #94a3b8 !important;
+  border-radius: 9999px;
+  height: 6px;
+}
+
+:root[data-theme="light"] input[type="range"]::-webkit-slider-thumb,
+:root.theme-light input[type="range"]::-webkit-slider-thumb,
+[data-scheme="light"] input[type="range"]::-webkit-slider-thumb {
+  background: #18181b !important;
+  border: 2px solid #ffffff !important;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.35) !important;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  margin-top: -6px;
+}

@@ -1,0 +1,42 @@
+{
+  "name": "openvibe-desktop",
+  "version": "1.3.9",
+  "description": "OpenVibe Desktop — open-source agentic coding environment. Bring your own AI model.",
+  "license": "SEE LICENSE IN LICENSE",
+  "author": "nihmadev <lolz@nihmadev.fun>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nihmadev/OpenVibe.git"
+  },
+  "type": "module",
+  "bin": {
+    "openvibe": "dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "npm run build && node dist/cli.js",
+    "test": "npm run build && node --test test/*.test.mjs",
+    "prepublishOnly": "npm run build",
+    "watch": "tsc --watch"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "dist/",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "openvibe",
+    "ai",
+    "coding",
+    "agent",
+    "desktop",
+    "tauri"
+  ],
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.4.0"
+  }
+}

@@ -1,0 +1,303 @@
+use crate::AppState;
+use tauri::State;
+
+const PROVIDER_TEMPLATE_IDS: &[&str] = &[
+    "premire",
+    "anthropic",
+    "openai",
+    "google",
+    "deepseek",
+    "groq",
+    "openrouter",
+    "ollama",
+    "cerebras",
+    "moonshot",
+    "zai",
+    "opencode",
+    "github",
+    "together",
+    "fireworks",
+    "mistral",
+    "xai",
+    "cohere",
+    "qwen",
+    "azure-openai",
+    "amazon-bedrock",
+    "huggingface",
+    "replicate",
+    "deepinfra",
+    "perplexity",
+    "anyscale",
+    "vercel",
+    "fal",
+    "baseten",
+    "hyperbolic",
+    "minimax",
+    "nvidia",
+    "sambanova",
+    "siliconcloud",
+];
+
+fn parse_model_name(model_id: &str) -> String {
+    let id = match model_id.find('/') {
+        Some(idx) => &model_id[idx + 1..],
+        None => model_id,
+    };
+    if id.is_empty() {
+        return id.to_string();
+    }
+
+    let parts: Vec<&str> = id.split('-').collect();
+
+    let all_caps: &[&str] = &["gpt", "glm"];
+    let mixed_case: &[(&str, &str)] = &[("deepseek", "DeepSeek")];
+
+    let mut words: Vec<String> = Vec::new();
+    let mut num_buf: Vec<&str> = Vec::new();
+
+    let flush_nums = |words: &mut Vec<String>, num_buf: &mut Vec<&str>| {
+        if !num_buf.is_empty() {
+            words.push(num_buf.join("."));
+            num_buf.clear();
+        }
+    };
+
+    for part in &parts {
+        if part.is_empty() {
+            continue;
+        }
+        let lower = part.to_lowercase();
+
+        if all_caps.contains(&lower.as_str()) {
+            flush_nums(&mut words, &mut num_buf);
+            words.push(part.to_uppercase());
+            continue;
+        }
+
+        if let Some(&(_, mapped)) = mixed_case.iter().find(|&&(k, _)| k == lower) {
+            flush_nums(&mut words, &mut num_buf);
+            words.push(mapped.to_string());
+            continue;
+        }
+
+        if is_numeric(part) {
+            num_buf.push(part);
+            continue;
+        }
+
+        flush_nums(&mut words, &mut num_buf);
+
+        let mut chars = part.chars();
+        if let Some(first) = chars.next() {
+            if first.is_alphabetic() {
+                let rest: String = chars.collect();
+                if !rest.is_empty() && is_numeric_like(&rest) {
+                    // Letter followed by numeric-like (e.g. "o1", "v2.5")
+                    words.push(format!("{}{}", first.to_uppercase().collect::<String>(), rest));
+                } else {
+                    // Normal word: capitalize first, lowercase rest
+                    words.push(format!("{}{}", first.to_uppercase().collect::<String>(), rest.to_lowercase()));
+                }
+                continue;
+            }
+        }
+
+        words.push(part.to_string());
+    }
+
+    flush_nums(&mut words, &mut num_buf);
+
+    words.join(" ")
+}
+
+/// Returns true if every character is a digit.
+fn is_numeric(s: &str) -> bool {
+    !s.is_empty() && s.chars().all(|c| c.is_ascii_digit())
+}
+
+/// Returns true if the string looks like a numeric literal (digits and dots,
+/// but not starting with a dot).
+fn is_numeric_like(s: &str) -> bool {
+    if s.is_empty() {
+        return false;
+    }
+    let mut chars = s.chars();
+    if let Some(first) = chars.next() {
+        if first == '.' {
+            return false;
+        }
+        if !first.is_ascii_digit() && first != '.' {
+            return false;
+        }
+    }
+    chars.all(|c| c.is_ascii_digit() || c == '.')
+}
+
+#[tauri::command]
+pub async fn models_fetch(
+    state: State<'_, AppState>,
+    base_url: String,
+    api_key: String,
+    provider_id: Option<String>,
+    models_url: Option<String>,
+    custom_headers: Option<Vec<(String, String)>>,
+) -> Result<serde_json::Value, String> {
+    let use_proxy = state
+        .projects
+        .lock()
+        .map_err(|e| e.to_string())
+        .and_then(|p| p.get_state("settings:useRegionalProxy").map_err(|e| e.to_string()))
+        .unwrap_or(Some("true".to_string()))
+        .unwrap_or_else(|| "true".to_string());
+
+    let api_url: Option<String> = if use_proxy == "true" {
+        let config = state.config.lock().map_err(|e| e.to_string())?;
+        config.as_ref().and_then(|c| c.api_url.clone())
+    } else {
+        None
+    };
+
+    let is_github = base_url.contains("models.github.ai");
+
+    // Try proxy first (skip for GitHub — uses non-standard paths), fall back to direct
+    if !is_github {
+        if let Some(ref api_url_val) = api_url {
+            if let Some(ref pid) = provider_id {
+                if PROVIDER_TEMPLATE_IDS.contains(&pid.as_str()) {
+                    let url = format!("{}/v3/{}/models", api_url_val.trim_end_matches('/'), pid);
+                    let mut headers = Vec::new();
+                    headers.push(("x-provider-base-url".to_string(), base_url.clone()));
+                    if !api_key.is_empty() {
+                        headers.push(("x-api-key".to_string(), api_key.clone()));
+                    }
+                    if let Ok(result) = do_fetch(&url, &headers, &state.http_client).await {
+                        return Ok(result);
+                    }
+                }
+            }
+        }
+    }
+
+    let is_google = base_url.contains("generativelanguage.googleapis.com");
+
+    // Use custom models_url if provided, otherwise derive from base_url
+    let url = if let Some(mu) = &models_url {
+        if !mu.is_empty() {
+            mu.clone()
+        } else if is_github {
+            format!("{}/catalog/models", base_url.trim_end_matches('/'))
+        } else if is_google {
+            let base = base_url.trim_end_matches('/').trim_end_matches("/openai");
+            format!("{}/models?key={}", base, api_key)
+        } else {
+            format!("{}/models", base_url.trim_end_matches('/'))
+        }
+    } else if is_github {
+        format!("{}/catalog/models", base_url.trim_end_matches('/'))
+    } else if is_google {
+        let base = base_url.trim_end_matches('/').trim_end_matches("/openai");
+        format!("{}/models?key={}", base, api_key)
+    } else {
+        format!("{}/models", base_url.trim_end_matches('/'))
+    };
+
+    let mut headers = Vec::new();
+    if !api_key.is_empty() {
+        if is_google {
+            headers.push(("x-goog-api-key".to_string(), api_key.clone()));
+        } else {
+            headers.push(("Authorization".to_string(), format!("Bearer {}", api_key)));
+        }
+    }
+    if is_github {
+        headers.push(("Accept".to_string(), "application/vnd.github+json".to_string()));
+        headers.push(("X-GitHub-Api-Version".to_string(), "2026-03-10".to_string()));
+    }
+    // Apply custom headers (overwrite defaults)
+    if let Some(ch) = custom_headers {
+        for (k, v) in ch {
+            // Remove existing header with same key if present
+            headers.retain(|(existing_key, _)| existing_key != &k);
+            headers.push((k, v));
+        }
+    }
+    do_fetch(&url, &headers, &state.http_client).await
+}
+
+async fn do_fetch(
+    url: &str,
+    headers: &[(String, String)],
+    client: &reqwest::Client,
+) -> Result<serde_json::Value, String> {
+    let mut req = client.get(url).timeout(std::time::Duration::from_secs(15));
+    for (k, v) in headers {
+        req = req.header(k, v);
+    }
+    let res = req.send().await.map_err(|e| e.to_string())?;
+    if !res.status().is_success() {
+        return Err(format!("HTTP {}", res.status()));
+    }
+    let data: serde_json::Value = res.json().await.map_err(|e| e.to_string())?;
+
+    // Handle {models: [...]}, {data: [...]}, and plain array formats
+    let models = if let Some(models) = data.get("models").and_then(|v| v.as_array()) {
+        models.clone()
+    } else if let Some(data_arr) = data.get("data").and_then(|v| v.as_array()) {
+        data_arr.clone()
+    } else if let Some(arr) = data.as_array() {
+        arr.clone()
+    } else {
+        return Err("Unexpected response format".to_string());
+    };
+
+    let mapped: Vec<serde_json::Value> = models
+        .iter()
+        .filter(|m| {
+            // If Google supportedGenerationMethods is present, only include generateContent models
+            if let Some(methods) = m.get("supportedGenerationMethods").and_then(|v| v.as_array()) {
+                methods.iter().any(|method| method.as_str() == Some("generateContent"))
+            } else {
+                true
+            }
+        })
+        .map(|m| {
+            let raw_id =
+                m.get("id").and_then(|v| v.as_str()).or_else(|| m.get("name").and_then(|v| v.as_str())).unwrap_or("");
+            let id = raw_id.strip_prefix("models/").unwrap_or(raw_id).to_string();
+            let name = m
+                .get("displayName")
+                .and_then(|v| v.as_str())
+                .or_else(|| m.get("name").and_then(|v| v.as_str()).filter(|n| !n.starts_with("models/")))
+                .map(|n| n.to_string())
+                .unwrap_or_else(|| parse_model_name(&id));
+            serde_json::json!({ "id": id, "name": name })
+        })
+        .filter(|m| !m["id"].as_str().unwrap_or("").is_empty())
+        .collect();
+
+    Ok(serde_json::json!({ "ok": true, "models": mapped }))
+}
+
+#[tauri::command]
+pub fn models_list_disabled(state: State<AppState>) -> Result<Vec<String>, String> {
+    let store = state.projects.lock().map_err(|e| e.to_string())?;
+    store.list_disabled_models().map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+pub fn models_toggle_disabled(state: State<AppState>, model_id: String) -> Result<bool, String> {
+    let store = state.projects.lock().map_err(|e| e.to_string())?;
+    store.toggle_disabled_model(&model_id).map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+pub fn models_list_enabled(state: State<AppState>) -> Result<Vec<String>, String> {
+    let store = state.projects.lock().map_err(|e| e.to_string())?;
+    store.list_enabled_models().map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+pub fn models_toggle_enabled(state: State<AppState>, model_id: String) -> Result<bool, String> {
+    let store = state.projects.lock().map_err(|e| e.to_string())?;
+    store.toggle_enabled_model(&model_id).map_err(|e| e.to_string())
+}

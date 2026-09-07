@@ -1,0 +1,29 @@
+#[derive(Debug, Clone)]
+pub struct AgentConfig {
+    pub api_key: String,
+    pub base_url: String,
+    pub model: String,
+    pub cwd: String,
+    pub api_url: Option<String>,
+    pub provider_id: Option<String>,
+    pub reasoning_effort: Option<String>,
+    /// Runtime-only stable identity for provider prefix caches. It is created
+    /// per chat session and deliberately never persisted with API settings.
+    pub prompt_cache_key: Option<String>,
+}
+
+impl AgentConfig {
+    pub fn llm_config(&self) -> LlmConfig {
+        LlmConfig {
+            api_key: self.api_key.clone(),
+            base_url: self.base_url.clone(),
+            model: self.model.clone(),
+            api_url: self.api_url.clone(),
+            provider_id: self.provider_id.clone(),
+            reasoning_effort: self.reasoning_effort.clone(),
+            prompt_cache_key: self.prompt_cache_key.clone(),
+        }
+    }
+}
+
+use agent_api::LlmConfig;

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en" translate="no" class="notranslate">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google" content="notranslate" />
+    <meta name="googlebot" content="notranslate" />
+    <title>Premire</title>
+    <link rel="icon" type="image/png" href="./icon.png" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self' data:; connect-src 'self' https: http://127.0.0.1:3000 http://localhost:3000 ws://127.0.0.1:3000 ws://localhost:3000 http://ipc.localhost ws://ipc.localhost ipc://localhost; img-src 'self' data: asset: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: asset: https: https://fonts.gstatic.com; script-src 'self' 'unsafe-eval'; worker-src 'self' blob: data:"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Syne:wght@700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body style="margin:0;background:#08090d;overflow:hidden;">
+    <div id="root">
+      <div id="premire-premount-splash" style="position:fixed;inset:0;background:#08090d;background-image:radial-gradient(circle 500px at 50% 48%, rgba(255, 255, 255, 0.03) 0%, rgba(15, 23, 42, 0.02) 50%, #08090d 90%);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:99999;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:#f1f5f9;user-select:none;-webkit-user-select:none;">
+        <style>
+          @keyframes premire-laser-pre {
+            0% { left: -40%; right: 100%; }
+            50% { left: 20%; right: 20%; }
+            100% { left: 100%; right: -40%; }
+          }
+          @keyframes premire-ambient-pre {
+            0% { opacity: 0.4; transform: scale(0.88); }
+            100% { opacity: 0.95; transform: scale(1.12); }
+          }
+          @keyframes premire-dot-pre {
+            0% { opacity: 0.4; transform: scale(0.85); }
+            100% { opacity: 1; transform: scale(1.15); }
+          }
+        </style>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:20px;">
+          <div style="position:relative;display:flex;align-items:center;justify-content:center;width:72px;height:72px;">
+            <div style="position:absolute;inset:-12px;border-radius:50%;background:radial-gradient(circle, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0) 70%);filter:blur(14px);animation:premire-ambient-pre 3s ease-in-out infinite alternate;pointer-events:none;"></div>
+            <div style="position:relative;display:flex;align-items:center;justify-content:center;width:64px;height:64px;border-radius:18px;background:linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);border:1px solid rgba(255, 255, 255, 0.08);box-shadow:0 4px 24px -1px rgba(0, 0, 0, 0.6), 0 0 15px rgba(255, 255, 255, 0.05), inset 0 1px 1px rgba(255, 255, 255, 0.12);">
+              <svg width="38" height="38" viewBox="0 0 40 40" fill="none">
+                <defs>
+                  <linearGradient id="p-stem-pre" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#FFFFFF" />
+                    <stop offset="100%" stop-color="#CBD5E1" />
+                  </linearGradient>
+                  <linearGradient id="p-loop-pre" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#94A3B8" />
+                    <stop offset="100%" stop-color="#64748B" />
+                  </linearGradient>
+                  <linearGradient id="p-core-pre" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stop-color="#FFFFFF" />
+                    <stop offset="100%" stop-color="#CBD5E1" />
+                  </linearGradient>
+                </defs>
+                <rect x="7" y="6" width="7" height="28" rx="3.5" fill="url(#p-stem-pre)" />
+                <path d="M17 6H26C31.5228 6 36 10.4772 36 16C36 21.5228 31.5228 26 26 26H17V6Z" fill="url(#p-loop-pre)" opacity="0.95" />
+                <rect x="17" y="12" width="8" height="8" rx="4" fill="#08090D" />
+                <circle cx="21" cy="16" r="2" fill="url(#p-core-pre)" />
+              </svg>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;">
+            <span style="font-family:'Cinzel','Syne',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-weight:800;font-size:19px;letter-spacing:0.22em;text-transform:uppercase;color:#f1f5f9;margin-left:0.22em;">Premire</span>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:14px;margin-top:4px;">
+            <div style="width:170px;height:2px;background:rgba(255,255,255,0.05);border-radius:9999px;overflow:hidden;position:relative;">
+              <div style="position:absolute;top:0;bottom:0;border-radius:9999px;background:linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.2) 30%, #e2e8f0 70%, #ffffff 100%);box-shadow:0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.2);animation:premire-laser-pre 1.6s cubic-bezier(0.65, 0, 0.35, 1) infinite;"></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:7px;">
+              <span style="width:5px;height:5px;border-radius:50%;background:#cbd5e1;box-shadow:0 0 8px rgba(255, 255, 255, 0.6);animation:premire-dot-pre 1.8s ease-in-out infinite alternate;"></span>
+              <span style="font-family:'Space Grotesk',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:#64748b;">Loading workspace...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="./premire.desktop.main.tsx"></script>
+  </body>
+</html>

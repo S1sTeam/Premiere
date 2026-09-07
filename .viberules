@@ -1,0 +1,25 @@
+# OpenVibe Project Rules (.viberules)
+
+## Architecture & Codebase Layout
+- **Stack**: Tauri v2, Rust (workspace crates), React, TypeScript.
+- **`src-tauri/`**: Tauri app entry point, window management, IPC handler registration.
+- **`crates/`**: Modular Rust domain logic (`agent`, `mcp`, `git`, etc.). Keep crates decoupled.
+- **`src/`**: React frontend, UI components, state management, and styles.
+
+## Rust Directives
+- **Zero Panics in Production**: NEVER use `.unwrap()`, `.expect()`, or `panic!()` in production crate logic.
+- **Explicit Error Handling**: Always return `Result<T, E>` and propagate using `?` with descriptive error context.
+- **Graceful Degradation**: Handle non-UTF8 conversions and file read failures gracefully. Log warnings using `tracing::warn!` instead of failing silently or crashing.
+- **Modular APIs**: Keep crate APIs concise, well-encapsulated, and documented.
+
+## TypeScript & React Directives
+- **Strict Typing**: NO `any` or loose `object` types. Define explicit `interface` or `type` definitions for all component props, state, and IPC messages.
+- **Tauri IPC Abstraction**: NEVER invoke `invoke()` directly from React components. All IPC calls MUST go through typed wrapper functions in `src/tauri-bridge.ts`.
+- **No Hardcoded Styles or Magic Values**:
+  - Use CSS custom properties / design tokens defined in the design system instead of hardcoded hex colors, inline styles, or magic pixel values.
+  - Keep styling consistent (dark mode palette, standard border radii, standard backdrop blurs, standard spacing tokens).
+- **Internationalization (i18n)**: Avoid hardcoding user-facing UI strings directly in components; structure strings for i18n support.
+
+## Testing & Verification
+- **Rust Tests**: Write unit tests for new crate features and edge cases. Ensure `cargo test` passes cleanly.
+- **Validation**: Verify build and linting standard integrity after non-trivial modifications.

@@ -1,0 +1,206 @@
+/* ── Create Project Dialog ─────────────────────────────── */
+
+.cpd-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: cpd-fade 0.15s ease-out;
+}
+
+@keyframes cpd-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.cpd-modal {
+  width: 440px;
+  max-width: calc(100vw - 32px);
+  background: #1a1e2e;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+  animation: cpd-scale 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes cpd-scale {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Header */
+.cpd-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cpd-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+.cpd-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: #64748b;
+  cursor: pointer;
+  transition: color 0.12s, background 0.12s;
+}
+
+.cpd-close:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #e2e8f0;
+}
+
+/* Form */
+.cpd-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.cpd-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cpd-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #94a3b8;
+}
+
+.cpd-path-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.cpd-input {
+  width: 100%;
+  height: 38px;
+  padding: 0 12px;
+  border-radius: 8px;
+  background: #141722;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #f1f5f9;
+  font-size: 13.5px;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.cpd-input--path {
+  flex: 1;
+  font-family: var(--font-mono, monospace);
+  font-size: 12px;
+}
+
+.cpd-input::placeholder {
+  color: #475569;
+}
+
+.cpd-input:focus {
+  border-color: rgba(255, 255, 255, 0.22);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.05);
+}
+
+.cpd-browse-btn {
+  height: 38px;
+  padding: 0 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #e2e8f0;
+  font-size: 12.5px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.cpd-browse-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.cpd-browse-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+
+/* Buttons */
+.cpd-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.cpd-btn {
+  height: 34px;
+  padding: 0 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: background 0.15s, opacity 0.15s;
+}
+
+.cpd-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.cpd-btn--cancel {
+  background: rgba(255, 255, 255, 0.06);
+  color: #94a3b8;
+}
+
+.cpd-btn--cancel:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  color: #e2e8f0;
+}
+
+.cpd-btn--create {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.cpd-btn--create:hover:not(:disabled) {
+  background: #f1f5f9;
+}
+
+.cpd-btn--create:active:not(:disabled) {
+  background: #cbd5e1;
+}
