@@ -1,8 +1,6 @@
 import { invoke } from "@tauri-apps/api/core";
 import { getCurrentWindow } from "@tauri-apps/api/window";
 
-const isTauri = typeof window !== "undefined" && Boolean((window as any).__TAURI_INTERNALS__);
-
 /** Native window controls exposed to the shell and onboarding flows. */
 export const windowApi = {
   startDragging: async (): Promise<void> => {

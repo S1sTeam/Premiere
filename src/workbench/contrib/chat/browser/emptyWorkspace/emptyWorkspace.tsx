@@ -1,5 +1,4 @@
 import type React from "react";
-import { CodeIcon, LightbulbIcon, RefreshCwStrokeIcon, SearchStrokeIcon } from "@/base/browser/ui/icons/iconRegistry";
 import { useI18n } from "@/platform/localization/localizationService";
 import "./emptyWorkspace.css";
 import type { EmptyWorkspaceViewProps } from "../../common/chat";
@@ -25,7 +24,7 @@ export function EmptyWorkspaceSuggestions(_props: { onSelectPrompt: (prompt: str
 
 export function EmptyWorkspaceView({
   projectName,
-  onSelectPrompt,
+  onSelectPrompt: _onSelectPrompt,
   section = "all",
 }: EmptyWorkspaceViewProps): React.ReactElement | null {
   if (section === "suggestions") {

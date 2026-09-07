@@ -10,7 +10,6 @@ import { useI18n } from "@/platform/localization/localizationService";
 import { CODE_FONT_OPTIONS, FONT_OPTIONS } from "@/platform/theme/fontService";
 import { parseVSCodeTheme, type ThemeVars, themes } from "@/platform/theme/themeRegistry";
 import { type ColorScheme, type ResolvedScheme, useTheme } from "@/platform/theme/themeService";
-import { InlineAnimPreview } from "../../../browser/animationPreview";
 import type { GeneralSettings, UpdateGeneral } from "../common/preferences";
 
 const UI_FONT_OPTIONS = [
@@ -45,14 +44,6 @@ function alphaHex(hex: string, alpha: number): string {
   return `${hex}${Math.round(alpha * 255)
     .toString(16)
     .padStart(2, "0")}`;
-}
-
-function rgba(hex: string, alpha: number): string {
-  if (!isHexColor(hex)) return `rgba(128, 128, 128, ${alpha})`;
-  const r = Number.parseInt(hex.slice(1, 3), 16);
-  const g = Number.parseInt(hex.slice(3, 5), 16);
-  const b = Number.parseInt(hex.slice(5, 7), 16);
-  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
 
 interface HsvColor {
@@ -294,8 +285,8 @@ function ColorField({ value, label, onChange }: { value: string; label: string; 
 
 function MiniApp({
   mode,
-  vars,
-  splitVars,
+  vars: _vars,
+  splitVars: _splitVars,
 }: {
   mode: ColorScheme;
   vars: ThemeVars;
@@ -381,7 +372,7 @@ function ModeCard({
   );
 }
 
-function DiffPreview({ lightVars, darkVars }: { lightVars: ThemeVars; darkVars: ThemeVars }) {
+function DiffPreview({ lightVars: _lightVars, darkVars: _darkVars }: { lightVars: ThemeVars; darkVars: ThemeVars }) {
   const { t } = useI18n();
   return (
     <div className="settings__diff-preview-wrapper">
@@ -547,14 +538,6 @@ function SettingsCardBlock({
   );
 }
 
-const ANIM_STYLE_OPTIONS = [
-  { value: "fade", label: "Плавное появление (Fade)" },
-  { value: "slide", label: "Скольжение (Slide)" },
-  { value: "scale", label: "Масштабирование (Scale)" },
-  { value: "fade-slide", label: "Появление со сдвигом (Fade-Slide)" },
-  { value: "none", label: "Без анимации (None)" },
-];
-
 function getAnimStyleOptions(t: (key: string) => string) {
   return [
     { value: "fade", label: t("animFade") || "Fade" },
@@ -567,7 +550,6 @@ function getAnimStyleOptions(t: (key: string) => string) {
 
 function AnimationPlayground({ settings }: { settings: AnimationSettings }) {
   const { t } = useI18n();
-  const animOptions = getAnimStyleOptions(t);
   const [activeTab, setActiveTab] = useState<"panel" | "sidebar" | "menu" | "buttons">("panel");
   const [animating, setAnimating] = useState(false);
 

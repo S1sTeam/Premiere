@@ -161,7 +161,7 @@ function ServerIconSvg({ type }: { type?: string }) {
 }
 
 export function McpSettingsPane(): React.ReactElement {
-  const { t, lang } = useI18n();
+  const { lang } = useI18n();
   const isRu = lang === "Russian";
 
   const [config, setConfig] = useState<McpConfig>({ servers: [] });
@@ -169,7 +169,7 @@ export function McpSettingsPane(): React.ReactElement {
   const [activeTab, setActiveTab] = useState<"servers" | "presets" | "raw">("servers");
   const [searchQuery, setSearchQuery] = useState("");
   const [rawToml, setRawToml] = useState<string>("");
-  const [isRawValid, setIsRawValid] = useState<boolean>(true);
+  const [_isRawValid, _setIsRawValid] = useState<boolean>(true);
 
   // Inspector & Restart feedback states
   const [toolsMap, setToolsMap] = useState<Record<string, string[]>>({});
@@ -272,7 +272,7 @@ export function McpSettingsPane(): React.ReactElement {
     try {
       const tools = await mcpListTools(serverName);
       setToolsMap((prev) => ({ ...prev, [serverName]: tools || [] }));
-    } catch (e) {
+    } catch {
       setToolsMap((prev) => ({ ...prev, [serverName]: [] }));
     } finally {
       setLoadingTools((prev) => ({ ...prev, [serverName]: false }));

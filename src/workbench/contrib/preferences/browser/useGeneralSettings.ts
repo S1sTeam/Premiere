@@ -129,7 +129,7 @@ export function useGeneralSettings(onLanguageChange?: (lang: string) => void): G
       context.updateGeneral(key, value);
       if (key === "language") onLanguageChange?.(value as string);
     },
-    [context.updateGeneral, onLanguageChange],
+    [context, onLanguageChange],
   );
 
   return useMemo(() => ({ general: context.general, updateGeneral }), [context.general, updateGeneral]);

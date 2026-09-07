@@ -47,7 +47,7 @@ const DEFAULT_MODELS = [
 ];
 
 function OnboardingViewContent({ onComplete, onLanguageChange }: OnboardingViewProps): React.ReactElement {
-  const { t, lang } = useI18n();
+  const { lang } = useI18n();
   const { colorScheme, setColorScheme } = useTheme();
 
   const [visible, setVisible] = useState(false);

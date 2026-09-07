@@ -3,7 +3,7 @@ import { invoke } from "@tauri-apps/api/core";
 import { isBrowserDevPreview } from "@/workbench/browser/desktopPreview";
 import type { ContentPart } from "@/workbench/common/conversation";
 import { getCurrentConfig, setCurrentConfig } from "@/workbench/services/aiProviders/tauri/aiProviderRuntimeState";
-import { appendMessageToActiveChat, getBrowserChatRecord, saveBrowserChatRecord } from "@/workbench/services/chat/tauri/chatService";
+import { appendMessageToActiveChat, getBrowserChatRecord } from "@/workbench/services/chat/tauri/chatService";
 import { activeChatId } from "@/workbench/services/chat/tauri/chatRuntimeState";
 import { emitAgentBusy, emitAgentEvent } from "../browser/agentEventService";
 import type { AgentContextUsage, AgentSendResult, SubAgentTraceEvent } from "../common/agent";

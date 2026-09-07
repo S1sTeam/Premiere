@@ -18,7 +18,6 @@ import {
 import { Tooltip } from "@/base/browser/ui/tooltip/tooltip";
 import { useScrollMask } from "@/base/browser/ui/useScrollMask";
 import { useI18n } from "@/platform/localization/localizationService";
-import { browserPreviewChatsByProject, isBrowserDevPreview } from "@/workbench/browser/desktopPreview";
 import type { ChatSummary } from "@/workbench/services/chat/common/chat";
 import { chatService, onChatsUpdated } from "@/workbench/services/chat/tauri/chatService";
 import { fileService } from "@/workbench/services/files/tauri/fileService";

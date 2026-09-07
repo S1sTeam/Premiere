@@ -9,7 +9,7 @@ import { fileService } from "@/workbench/services/files/tauri/fileService";
 import { typeDefinitionService } from "@/workbench/services/languageServer/tauri/typeDefinitionService";
 import type { Project } from "@/workbench/services/workspace/common/workspace";
 import { workspaceService } from "@/workbench/services/workspace/tauri/workspaceService";
-import { browserPreviewProject, browserPreviewProjects, isBrowserDevPreview } from "./desktopPreview";
+import { isBrowserDevPreview } from "./desktopPreview";
 
 export type WorkbenchInitializationResult = { ok: true; config: VibeConfig } | { ok: false; error: string };
 

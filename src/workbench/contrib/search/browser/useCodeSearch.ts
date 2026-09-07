@@ -207,7 +207,6 @@ export function useCodeSearch({ cwd, onOpenFile, onClose }: UseCodeSearchProps) 
 
   // React Compiler cannot memoize TanStack Virtual's returned functions; the
   // library manages its own subscriptions, so skipping memoization is expected.
-  // eslint-disable-next-line react-hooks/incompatible-library
   const virtualizer = useVirtualizer({
     count: flatRows.length,
     getScrollElement: () => resultsRef.current,

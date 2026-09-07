@@ -18,6 +18,8 @@ export default tseslint.config(
       ...reactHooks.configs.recommended.rules,
       "react/jsx-key": "error",
       "react/no-unescaped-entities": "off",
+      "no-empty": ["error", { "allowEmptyCatch": true }],
+      "no-control-regex": "off",
       "@typescript-eslint/no-unused-vars": [
         "warn",
         { argsIgnorePattern: "^_", varsIgnorePattern: "^_", caughtErrorsIgnorePattern: "^_" },
@@ -28,6 +30,7 @@ export default tseslint.config(
       "react-hooks/immutability": "off",
       "react-hooks/preserve-manual-memoization": "off",
       "react-hooks/use-memo": "off",
+      "react-hooks/incompatible-library": "off",
     },
   },
   {
@@ -45,6 +48,8 @@ export default tseslint.config(
       "1/",
       "*.rs",
       "venv_translate/",
+      "scripts/",
+      "*.cjs",
     ],
   },
 );

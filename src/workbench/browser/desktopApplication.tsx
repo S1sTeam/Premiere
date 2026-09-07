@@ -321,9 +321,6 @@ export function DesktopApplication({
     [chats, activeChat, handlePickChat, handleNewChat, setItems],
   );
 
-  const canGoBack = chats.length > 1;
-  const canGoForward = chats.length > 1;
-
   const handleNewChatCommand = useCallback(() => {
     setItems([]);
     handleNewChat(() => setItems([]));
